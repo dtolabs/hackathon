@@ -11,7 +11,7 @@ description "Base role applied to all nodes."
       "recipe[sudo]",
       "recipe[tools]",
       "recipe[motd]",
+      "recipe[runit]",
       "recipe[chef-client::service]",
-      "recipe[nagios::client]",
-      "recipe[munin::client]"
+      "recipe[nagios::client]"
 )
