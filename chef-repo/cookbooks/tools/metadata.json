@@ -1,0 +1,29 @@
+{
+  "version": "0.1.0",
+  "providing": {
+  },
+  "maintainer": "Example Com",
+  "attributes": {
+  },
+  "replacing": {
+  },
+  "recipes": {
+  },
+  "dependencies": {
+  },
+  "maintainer_email": "ops@example.com",
+  "groupings": {
+  },
+  "recommendations": {
+  },
+  "license": "Apache 2.0",
+  "suggestions": {
+  },
+  "name": "tools",
+  "conflicting": {
+  },
+  "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
+  "platforms": {
+  },
+  "description": "Installs/Configures tools"
+}

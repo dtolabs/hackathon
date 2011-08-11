@@ -1,0 +1,17 @@
+<html>
+        <head>
+                <title>Welcome to <%= node[:hostname]%></title>
+        </head>
+        <body>
+                Chef rocks...you have reached:
+                <ul>
+                        <li><b>FQDN</b>: <%= node[:fqdn] %></li>
+                        <li><b>Public FQDN</b>: <%= node[:ec2][:public_hostname]%></li>
+                        <li><b>IP Address</b>: <%= node[:ipaddress] %></li>
+                        <li><b>Public IP</b>: <%= node[:ec2][:public_ipv4] %></li>
+                        <li><b>Platform</b>: <%= node[:platform] %></li>
+                        <li><b>Plaform Version</b>: <%= node[:platform_version] %></li>
+                        <li><b>Run List</b>: <%= node.run_list %></li>
+                </ul>
+        </body>
+</html>

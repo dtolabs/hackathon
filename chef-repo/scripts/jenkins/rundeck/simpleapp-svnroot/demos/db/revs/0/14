@@ -1,0 +1,69 @@
+id: 9-1.0.r14/0
+type: file
+pred: 9-1.0.r13/42
+count: 10
+text: 10 0 126 197 eedc30a1aa1bf1676fd46e8baeabf0db 2ac8a5c580b00b61f19171951369dd7493ab6389 13-d/_3
+cpath: /trunk/src/index.jsp
+copyroot: 0 /
+
+PLAIN
+K 8
+META-INF
+V 17
+dir 4-1.0.r1/1179
+K 7
+WEB-INF
+V 17
+dir b-1.0.r1/1832
+K 9
+index.jsp
+V 16
+file 9-1.0.r14/0
+END
+ENDREP
+id: 2-1.0.r14/324
+type: dir
+pred: 2-1.0.r13/365
+count: 10
+text: 14 200 111 111 d4b357ead3b15fb53ef6d4a9b66ad348
+cpath: /trunk/src
+copyroot: 0 /
+
+PLAIN
+K 9
+build.xml
+V 17
+file f-1.0.r5/214
+K 3
+src
+V 17
+dir 2-1.0.r14/324
+END
+ENDREP
+id: 0-1.0.r14/554
+type: dir
+pred: 0-1.0.r13/594
+count: 13
+text: 14 469 72 72 688c70d3626e48716a1eff80c2634fa4
+cpath: /trunk
+copyroot: 0 /
+
+PLAIN
+K 5
+trunk
+V 17
+dir 0-1.0.r14/554
+END
+ENDREP
+id: 0.0.r14/743
+type: dir
+pred: 0.0.r13/783
+count: 14
+text: 14 693 37 37 f4f2cc8a25c54198c0a05b8eb0d34b4a
+cpath: /
+copyroot: 0 /
+
+9-1.0.t13-d modify-file true false /trunk/src/index.jsp
+
+
+743 873

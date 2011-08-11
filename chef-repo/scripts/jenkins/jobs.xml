@@ -1,0 +1,497 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<joblist> 
+  <job> 
+    <id>5</id>  
+    <loglevel>INFO</loglevel>  
+    <sequence keepgoing="false" strategy="node-first"> 
+      <command> 
+        <jobref name="stop" group="simpleapp"> 
+          <arg line="-catalinahome ${option.catalinahome}"/> 
+        </jobref> 
+      </command>  
+      <command> 
+        <jobref name="install" group="simpleapp"> 
+          <arg line="-catalinahome ${option.catalinahome} -simple ${option.simple} -tomcat ${option.tomcat}"/> 
+        </jobref> 
+      </command>  
+      <command> 
+        <jobref name="configure" group="simpleapp"> 
+          <arg line="-catalinahome ${option.catalinahome}"/> 
+        </jobref> 
+      </command>  
+      <command> 
+        <jobref name="start" group="simpleapp"> 
+          <arg line="-catalinahome ${option.catalinahome}"/> 
+        </jobref> 
+      </command> 
+    </sequence>  
+    <description>deploy the simple app,tomcat zip</description>  
+    <name>Deploy</name>  
+    <context> 
+      <project>examples</project>  
+      <options> 
+        <option required="true" name="catalinahome" enforcedvalues="true" values="/var/rundeck/simpleapp/apache-tomcat" value="/var/rundeck/simpleapp/apache-tomcat"> 
+          <description>the tomcat install directory</description> 
+        </option>  
+        <option required="true" name="simple" enforcedvalues="true" valuesUrl="http://strongbad:8080/plugin/rundeck/options/artifact?project=simple.war&amp;build=lastSuccessful"> 
+          <description>the simple war</description> 
+        </option>  
+        <option required="true" name="tomcat" enforcedvalues="true" valuesUrl="http://localhost/simpleapp/tomcat.json"> 
+          <description>tomcat zip</description> 
+        </option> 
+      </options> 
+    </context>  
+    <group>simpleapp</group> 
+  </job>  
+  <job> 
+    <id>17</id>  
+    <loglevel>INFO</loglevel>  
+    <sequence keepgoing="false" strategy="node-first"> 
+      <command> 
+        <exec>echo restarting</exec> 
+      </command>  
+      <command> 
+        <jobref name="stop" group="examples"> 
+          <arg line="-method ${option.stop_method}"/> 
+        </jobref> 
+      </command>  
+      <command> 
+        <jobref name="start" group="examples"/> 
+      </command> 
+    </sequence>  
+    <description>restarts the application</description>  
+    <name>Restart</name>  
+    <context> 
+      <project>examples</project>  
+      <options> 
+        <option required="true" name="stop_method" enforcedvalues="true" values="kill,shutdown"> 
+          <description>The method to use for stopping</description> 
+        </option> 
+      </options> 
+    </context>  
+    <group>examples</group> 
+  </job>  
+  <job> 
+    <id>4</id>  
+    <loglevel>INFO</loglevel>  
+    <sequence keepgoing="false" strategy="node-first"> 
+      <command> 
+        <scriptargs>${option.catalinahome}</scriptargs>  
+        <script><![CDATA[#!/bin/bash
+# File: configure.sh
+USAGE="$0 configure.sh <catalina-home>"
+die() { echo "ERROR: $@" ; exit 1 ; }
+[ $# = 1 ] || { die "$USAGE" ; }     
+CATALINA_HOME=$1     
+[ -d "$CATALINA_HOME" ] || { die "CATALINA_HOME not found: $1" ; }     
+echo "Chmod'ing files in $CATALINA_HOME/bin/*.sh"
+chmod +x $CATALINA_HOME/bin/*.sh || die "chmod step failed"     
+echo "Customizing $CATALINA_HOME/conf/server.xml ..."
+server_xml_tmp=/tmp/server.xml.$$ ;# define a temporary file     
+sed -e 's/8080/28080/g' -e 's/8005/28005/g' \
+    -e 's/8009/28009/g' $CATALINA_HOME/conf/server.xml > ${server_xml_tmp}
+mv ${server_xml_tmp} $CATALINA_HOME/conf/server.xml || {
+die "Text replace failed: $CATALINA_HOME/conf/server.xml"
+    }     
+echo "$CATALINA_HOME/conf/server.xml customized"
+]]></script> 
+      </command> 
+    </sequence>  
+    <description>start the simple app</description>  
+    <name>configure</name>  
+    <context> 
+      <project>examples</project>  
+      <options> 
+        <option required="true" name="catalinahome" values="/var/rundeck/simpleapp/apache-tomcat"> 
+          <description>the tomcat install directory</description> 
+        </option> 
+      </options> 
+    </context>  
+    <dispatch> 
+      <threadcount>1</threadcount>  
+      <keepgoing>false</keepgoing>  
+      <excludePrecedence>true</excludePrecedence> 
+    </dispatch>  
+    <nodefilters> 
+      <include> 
+        <tags>simple</tags> 
+      </include> 
+    </nodefilters>  
+    <group>simpleapp</group> 
+  </job>  
+  <job> 
+    <id>6</id>  
+    <loglevel>INFO</loglevel>  
+    <sequence keepgoing="false" strategy="node-first"> 
+      <command> 
+        <exec>echo {'"${node.name}": {"login": "'$(whoami)'", "os-name": "'$(uname -s)'", "uptime": "'$(uptime)'"}}'</exec> 
+      </command> 
+    </sequence>  
+    <description>print out some node info</description>  
+    <name>info</name>  
+    <context> 
+      <project>examples</project> 
+    </context>  
+    <dispatch> 
+      <threadcount>1</threadcount>  
+      <keepgoing>false</keepgoing>  
+      <excludePrecedence>true</excludePrecedence> 
+    </dispatch>  
+    <nodefilters> 
+      <include> 
+        <name>.*</name>  
+        <os-name>Linux</os-name> 
+      </include> 
+    </nodefilters>  
+    <group>adm</group> 
+  </job>  
+  <job> 
+    <id>7</id>  
+    <loglevel>INFO</loglevel>  
+    <sequence keepgoing="false" strategy="node-first"> 
+      <command> 
+        <exec>echo {'"${node.name}": {"login": "'$(whoami)'", "os-name": "'$(uname -s)'", "uptime": "'$(uptime)'"}}'</exec> 
+      </command> 
+    </sequence>  
+    <description>print out some node info</description>  
+    <name>info2</name>  
+    <context> 
+      <project>examples</project> 
+    </context>  
+    <dispatch> 
+      <threadcount>1</threadcount>  
+      <keepgoing>false</keepgoing>  
+      <excludePrecedence>true</excludePrecedence> 
+    </dispatch>  
+    <nodefilters> 
+      <include> 
+        <name>.*</name>  
+        <os-name>Linux</os-name> 
+      </include> 
+    </nodefilters>  
+    <group>adm/test</group> 
+  </job>  
+  <job> 
+    <id>3</id>  
+    <loglevel>INFO</loglevel>  
+    <sequence keepgoing="false" strategy="node-first"> 
+      <command> 
+        <scriptargs>${option.catalinahome} ${option.tomcat} ${option.simple}</scriptargs>  
+        <script><![CDATA[#!/bin/bash
+# File: install.sh 
+USAGE="$0 <catalinahome> <tomcat-pkg-url> <simple-pkg-url>"
+
+die() { echo "ERROR: $@" ; exit 1 ; }
+[ $# = 3 ] || { die "$USAGE" ; }
+
+CATALINA_HOME=$1; 
+TOMCAT_PKG_URL=$2;
+SIMPLE_PKG_URL=$3;
+
+catalina_parentdir=`dirname $CATALINA_HOME`  ;# parent dir
+mkdir -p $catalina_parentdir || {die "failed creating dir: ${catalina_parentdir}"}
+tomcat_filename=${TOMCAT_PKG_URL##*/} ;# parse file names
+tomcat_base=${tomcat_filename%.zip}   ;#
+simple_filename=${SIMPLE_PKG_URL##*/} ;#
+simple_base=${simple_filename%-*}     ;#
+
+[ -d ${CATALINA_HOME} ] && {
+    rm -r ${CATALINA_HOME} || die "failed cleaning existing tomcat deployment"
+}
+
+fetch() {
+    srcurl=$1; dstpath=$2; overwrite=$3
+    curl -s -S  ${srcurl} -o ${dstpath} || die "Download failed: ${srcurl}"
+    echo "Downloaded ${srcurl}" 
+} 
+
+# retrieve the ZIP
+fetch  ${TOMCAT_PKG_URL}  $catalina_parentdir/${tomcat_filename}
+
+# extract the ZIP
+unzip -q $catalina_parentdir/${tomcat_filename} -d $catalina_parentdir || {
+  die "Extract failed: $catalina_parentdir/${tomcat_filename}"
+}
+
+# move the extracted dir to the catalina_home basename
+mv $catalina_parentdir/${tomcat_base} ${CATALINA_HOME} || die "failed to create ${CATALINA_HOME}"
+echo "Extracted ${tomcat_filename} to $CATALINA_HOME"
+
+# retrieve the WAR
+fetch ${SIMPLE_PKG_URL} $catalina_parentdir/${simple_filename}
+
+# extract the WAR
+mkdir -p ${CATALINA_HOME}/webapps/${simple_base} || {
+    die "failed making subdirectory directory: ${simple_base}"
+}
+unzip -q $catalina_parentdir/${simple_filename} -d ${CATALINA_HOME}/webapps/${simple_base} || {
+    die "Extract failed: $catalina_parentdir/$simple_filename"
+}
+echo "extracted ${simple_filename} to ${CATALINA_HOME}/webapps/${simple_base}"
+
+echo "install done"]]></script> 
+      </command> 
+    </sequence>  
+    <description>installs the simple app server and war</description>  
+    <name>install</name>  
+    <context> 
+      <project>examples</project>  
+      <options> 
+        <option required="true" name="catalinahome" values="/var/rundeck/simpleapp/apache-tomcat"> 
+          <description>the tomcat install directory</description> 
+        </option>  
+        <option required="true" name="simple" valuesUrl="file:/var/rundeck/simpleapp/simple.json"> 
+          <description>the simple war url</description> 
+        </option>  
+        <option required="true" name="tomcat" valuesUrl="file:/var/rundeck/simpleapp/tomcat.json"> 
+          <description>tomcat zip url</description> 
+        </option> 
+      </options> 
+    </context>  
+    <dispatch> 
+      <threadcount>1</threadcount>  
+      <keepgoing>false</keepgoing>  
+      <excludePrecedence>true</excludePrecedence> 
+    </dispatch>  
+    <nodefilters> 
+      <include> 
+        <tags>simple</tags> 
+      </include> 
+    </nodefilters>  
+    <group>simpleapp</group> 
+  </job>  
+  <job> 
+    <id>11</id>  
+    <schedule> 
+      <time hour="00" seconds="0" minute="00"/>  
+      <weekday day="*"/>  
+      <month month="*"/>  
+      <year year="*"/> 
+    </schedule>  
+    <loglevel>INFO</loglevel>  
+    <sequence keepgoing="false" strategy="node-first"> 
+      <command> 
+        <exec>echo {'"${node.name}": {"login": "'$(whoami)'", "os-name": "'$(uname -s)'", "uptime": "'$(uptime)'"}}'</exec> 
+      </command> 
+    </sequence>  
+    <description>collect some node info</description>  
+    <name>inventory</name>  
+    <context> 
+      <project>examples</project> 
+    </context>  
+    <dispatch> 
+      <threadcount>1</threadcount>  
+      <keepgoing>false</keepgoing>  
+      <excludePrecedence>true</excludePrecedence> 
+    </dispatch>  
+    <nodefilters> 
+      <include> 
+        <name>.*</name> 
+      </include> 
+    </nodefilters>  
+    <group>adm</group> 
+  </job>  
+  <job> 
+    <id>16</id>  
+    <loglevel>INFO</loglevel>  
+    <sequence keepgoing="false" strategy="node-first"> 
+      <command> 
+        <exec>echo starting</exec> 
+      </command> 
+    </sequence>  
+    <description>starts the application</description>  
+    <name>start</name>  
+    <context> 
+      <project>examples</project> 
+    </context>  
+    <group>examples</group> 
+  </job>  
+  <job> 
+    <id>2</id>  
+    <loglevel>INFO</loglevel>  
+    <sequence keepgoing="false" strategy="node-first"> 
+      <command> 
+        <scriptargs>${option.catalinahome}</scriptargs>  
+        <script><![CDATA[#!/bin/bash
+# File: start.sh
+USAGE="$0 <catalinahome>"
+die() { echo "ERROR: $@" ; exit 1 ; }
+[ $# = 1 ] || { die "Usage: start.sh <catalinahome>" ; }
+export CATALINA_HOME=$1
+[ -d "$CATALINA_HOME" ] || { die "CATALINA_HOME not found: $CATALINA_HOME" ; }
+
+export CATALINA_BASE=$CATALINA_HOME;
+echo "Invoking $CATALINA_HOME/bin/startup.sh"
+$CATALINA_HOME/bin/startup.sh;
+exit $?]]></script> 
+      </command> 
+    </sequence>  
+    <description>start the simple app</description>  
+    <name>start</name>  
+    <context> 
+      <project>examples</project>  
+      <options> 
+        <option required="true" name="catalinahome" values="/var/rundeck/simpleapp/apache-tomcat"> 
+          <description>the tomcat install directory</description> 
+        </option> 
+      </options> 
+    </context>  
+    <dispatch> 
+      <threadcount>1</threadcount>  
+      <keepgoing>false</keepgoing>  
+      <excludePrecedence>true</excludePrecedence> 
+    </dispatch>  
+    <nodefilters> 
+      <include> 
+        <tags>simple</tags> 
+      </include> 
+    </nodefilters>  
+    <group>simpleapp</group> 
+  </job>  
+  <job> 
+    <id>15</id>  
+    <loglevel>INFO</loglevel>  
+    <sequence keepgoing="false" strategy="node-first"> 
+      <command> 
+        <exec>echo stopping with method ${option.method}</exec> 
+      </command> 
+    </sequence>  
+    <description>stops the application</description>  
+    <name>stop</name>  
+    <context> 
+      <project>examples</project>  
+      <options> 
+        <option required="true" name="method" enforcedvalues="true" values="kill,shutdown"> 
+          <description>the stop method</description> 
+        </option> 
+      </options> 
+    </context>  
+    <dispatch> 
+      <threadcount>1</threadcount>  
+      <keepgoing>false</keepgoing>  
+      <excludePrecedence>true</excludePrecedence> 
+    </dispatch>  
+    <nodefilters/>  
+    <group>examples</group> 
+  </job>  
+  <job> 
+    <id>1</id>  
+    <loglevel>INFO</loglevel>  
+    <sequence keepgoing="false" strategy="node-first"> 
+      <command> 
+        <scriptargs>${option.catalinahome}</scriptargs>  
+        <script><![CDATA[#!/bin/bash
+# File: stop.sh <catalina-home>
+die() { echo "ERROR: $@" ; exit 1 ; }
+[ $# = 1 ] || { die "Usage: stop.sh <catalina-home>" ; }
+
+export CATALINA_HOME=$1
+export PORT=28080
+
+[ ! -d "$1" ] && {  echo "CATALINA_HOME not found: $1" ; }
+
+export CATALINA_BASE=$CATALINA_HOME;
+netstat -an|grep ${PORT}|grep -q LISTEN && {
+    echo "Tomcat listening (port=$PORT). Running stop script ..."
+    $CATALINA_HOME/bin/shutdown.sh || die "Script failed: stop.sh"
+    exit $?
+} 
+echo "Tomcat stopped"
+exit 0]]></script> 
+      </command> 
+    </sequence>  
+    <description>stop the simple app</description>  
+    <name>stop</name>  
+    <context> 
+      <project>examples</project>  
+      <options> 
+        <option required="true" name="catalinahome" values="/var/rundeck/simpleapp/apache-tomcat"> 
+          <description>the tomcat install directory</description> 
+        </option> 
+      </options> 
+    </context>  
+    <dispatch> 
+      <threadcount>1</threadcount>  
+      <keepgoing>false</keepgoing>  
+      <excludePrecedence>true</excludePrecedence> 
+    </dispatch>  
+    <nodefilters> 
+      <include> 
+        <tags>simple</tags> 
+      </include> 
+    </nodefilters>  
+    <group>simpleapp</group> 
+  </job>  
+  <job> 
+    <id>8</id>  
+    <loglevel>INFO</loglevel>  
+    <sequence keepgoing="false" strategy="node-first"> 
+      <command> 
+        <exec>echo hi</exec> 
+      </command> 
+    </sequence>  
+    <description>test out the notification features</description>  
+    <name>test email notification</name>  
+    <context> 
+      <project>examples</project> 
+    </context>  
+    <notification> 
+      <onsuccess> 
+        <webhook urls="http://localhost:8000/bleeps/bleep?email_from=alex@dtosolutions.com&amp;email_recipients=alexhonor@yahoo.com&amp;bleep_message=[${execution.status}]%20${job.name}&amp;bleep_client=rundeck-execution&amp;bleep_service=email&amp;bleep_content_type=application/xml&amp;email_template_html=http://localhost/bleep/templates/email.html"/> 
+      </onsuccess> 
+    </notification>  
+    <group>bleep fun</group> 
+  </job>  
+  <job> 
+    <id>18</id>  
+    <loglevel>INFO</loglevel>  
+    <sequence keepgoing="false" strategy="node-first"> 
+      <command> 
+        <exec>echo hi</exec> 
+      </command> 
+    </sequence>  
+    <description>test out the notification features</description>  
+    <name>test tracker notification</name>  
+    <context> 
+      <project>examples</project> 
+    </context>  
+    <notification> 
+      <onsuccess> 
+        <webhook urls="http://localhost:8000/bleeps/bleep?email_from=alex@dtosolutions.com&amp;email_recipients=alexhonor@yahoo.com&amp;bleep_message=[${execution.status}]%20${job.name}&amp;bleep_client=rundeck-execution&amp;bleep_service=tracker&amp;bleep_content_type=application/rundeck-execution%2Bxml&amp;project=examples"/> 
+      </onsuccess> 
+    </notification>  
+    <group>bleep fun</group> 
+  </job>  
+  <job> 
+    <id>10</id>  
+    <loglevel>INFO</loglevel>  
+    <sequence keepgoing="false" strategy="node-first"> 
+      <command> 
+        <exec>echo multi_choice=${option.multi_choice}, one_choice=${option.one_choice}</exec> 
+      </command>  
+      <command> 
+        <exec>env|grep RD_ |sort</exec> 
+      </command> 
+    </sequence>  
+    <description/>  
+    <name>user option procedure</name>  
+    <context> 
+      <project>examples</project>  
+      <options> 
+        <option name="multi_choice" enforcedvalues="true" values="black,blue,brown,green,orange,purple,red,white,yellow"> 
+          <description>pick any of these</description>  
+          <multivalued>true</multivalued>  
+          <delimiter>,</delimiter> 
+        </option>  
+        <option required="true" name="one_choice" values="four,one,three,two"> 
+          <description>pick only one</description> 
+        </option>  
+        <option name="remote_choice" enforcedvalues="true" valuesUrl="http://localhost/simpleapp/remote_choice.json"> 
+          <description>pick from option provider choices</description> 
+        </option> 
+      </options> 
+    </context>  
+    <group>adm</group> 
+  </job> 
+</joblist>

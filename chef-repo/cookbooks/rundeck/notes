@@ -1,0 +1,2 @@
+sudo chmod -R 777 /var/rundeck
+sudo -b chef-rundeck -c /etc/chef/client.rb -u rundeck  -w https://manage.opscode.com/

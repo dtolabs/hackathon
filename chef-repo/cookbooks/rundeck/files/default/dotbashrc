@@ -1,0 +1,77 @@
+#-------------------
+# Personnal Aliases
+#-------------------
+
+alias cds='cd ~/chef-repo/scripts'
+alias cdr='cd ~/chef-repo/roles'
+alias cdc='cd ~/chef-repo/cookbooks'
+
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+# -> Prevents accidentally clobbering files.
+alias mkdir='mkdir -p'
+
+alias h='history'
+alias which='type -a'
+alias ..='cd ..'
+alias path='echo -e ${PATH//:/\\n}'
+alias libpath='echo -e ${LD_LIBRARY_PATH//:/\\n}'
+alias du='du -kh'       # Makes a more readable output.
+alias df='df -kTh'
+
+#-------------------------------------------------------------
+# The 'ls' family (this assumes you use a recent GNU ls)
+#-------------------------------------------------------------
+alias ll="ls -l"
+alias ls='ls -hF'  # add colors for filetype recognition
+alias la='ls -Al'          # show hidden files
+alias lx='ls -lXB'         # sort by extension
+alias lk='ls -lSr'         # sort by size, biggest last
+alias lc='ls -ltcr'        # sort by and show change time, most recent last
+alias lu='ls -ltur'        # sort by and show access time, most recent last
+alias lt='ls -ltr'         # sort by date, most recent last
+alias lm='ls -al |more'    # pipe through 'more'
+alias lr='ls -lR'          # recursive ls
+alias tree='tree -Csu'     # nice alternative to 'recursive ls'
+
+export PATH="/usr/local/bin:/usr/local/sbin:$PATH" 
+export EDITOR=vim
+
+# AWS Data
+AWS_ACCOUNT_ID='4049-3943-5692'
+KEY_FILE_NAME="~/.chef/pk-rundeck.pem"
+CERT_FILE_NAME="~/.chef/cert-rundeck.pem"
+AWS_ACCESS_KEY_ID='AKIAISCMJNNSSTGM4L2A'
+AWS_SECRET_ACCESS_KEY='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'
+AMAZON_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+AMAZON_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+EC2_PRIVATE_KEY=$KEY_FILE_NAME
+EC2_CERT=$CERT_FILE_NAME
+BUCKET_BASE_NAME=
+
+export AWS_ACCOUNT_ID KEY_FILE_NAME CERT_FILE_NAME AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY BUCKET_BASE_NAME AMAZON_ACCESS_KEY_ID AMAZON_SECRET_ACCESS_KEY EC2_PRIVATE_KEY EC2_CERT 
+
+#Rackspace Data
+RS_API_USERNAME='rundeck'
+RS_API_KEY=''
+
+export RS_API_USERNAME RS_API_KEY 
+
+#Opscode Data
+OPSCODEID='botchagalupe'
+OPSCODENODE='john'
+
+export OPSCODEID OPSCODENODE 
+
+#Rundeck Data
+RUNDECKID='rundeck-demo'
+RDECK_BASE="/var/lib/rundeck/"
+#ulimit -n 65535
+PATH=$PATH:$RDECK_BASE/tools/bin
+MANPATH=$MANPATH:$RDECK_BASE/docs/man
+
+export RUNDECKID RDECK_BASE PATH MANPATH
+
+export JAVA_HOME=/usr/lib/jvm/java-6-openjdk/
+

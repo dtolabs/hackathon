@@ -1,0 +1,32 @@
+{
+  "version": "0.0.1",
+  "providing": {
+  },
+  "maintainer": "YOUR_COMPANY_NAME",
+  "attributes": {
+  },
+  "replacing": {
+  },
+  "recipes": {
+  },
+  "dependencies": {
+    "java": [
+
+    ]
+  },
+  "maintainer_email": "YOUR_EMAIL",
+  "groupings": {
+  },
+  "recommendations": {
+  },
+  "license": "All rights reserved",
+  "suggestions": {
+  },
+  "name": "rundeck",
+  "conflicting": {
+  },
+  "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES:\n\n= USAGE:\n\n",
+  "platforms": {
+  },
+  "description": "Installs/Configures rundeck"
+}

@@ -1,0 +1,11 @@
+<project name="simple" default="war">
+   <property name="version" value="SNAPSHOT"/>
+   <target name="war">
+    <mkdir dir="dist"/>
+    <war destfile="dist/simple-${version}.war" 
+         webxml="src/WEB-INF/web.xml">
+      <fileset dir="src">
+      </fileset>
+    </war> 
+   </target>
+</project>

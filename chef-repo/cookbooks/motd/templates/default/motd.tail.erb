@@ -1,0 +1,8 @@
+********************************************************************
+Chef Environment
+Node: <%= @node_name %>
+Cloud Provider: <%= node[:cloud][:provider] %>
+Public IP Address: <%= node[:cloud][:public_ips] %>
+Privte IP Address: <%= node[:ipaddress] %>
+Run List: <%= node.run_list %>
+********************************************************************

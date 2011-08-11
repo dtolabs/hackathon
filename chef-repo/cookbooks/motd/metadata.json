@@ -1,0 +1,30 @@
+{
+  "version": "0.1.0",
+  "providing": {
+  },
+  "maintainer": "Opscode, Inc.",
+  "attributes": {
+  },
+  "replacing": {
+  },
+  "recipes": {
+    "motd": "Updates motd.tail with Chef Roles"
+  },
+  "dependencies": {
+  },
+  "maintainer_email": "cookbooks@opscode.com",
+  "groupings": {
+  },
+  "recommendations": {
+  },
+  "license": "Apache 2.0",
+  "suggestions": {
+  },
+  "name": "motd",
+  "conflicting": {
+  },
+  "long_description": "Queries Chef for the roles assigned to the node and updates motd.tail\n",
+  "platforms": {
+  },
+  "description": "Updates motd.tail with Chef Roles"
+}
