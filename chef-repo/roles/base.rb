@@ -10,8 +10,6 @@ description "Base role applied to all nodes."
       "recipe[users::sysadmins]",
       "recipe[sudo]",
       "recipe[tools]",
-      "recipe[motd]",
       "recipe[runit]",
-      "recipe[chef-client::service]",
-      "recipe[nagios::client]"
+      "recipe[chef-client::service]"
 )
