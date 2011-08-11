@@ -23,3 +23,4 @@ package "jenkins" do
   action :install
 end
 
+include_recipe "jenkins::plugins"

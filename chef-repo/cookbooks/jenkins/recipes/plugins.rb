@@ -17,6 +17,12 @@ remote_file "/var/lib/jenkins/plugins/rundeck.hpi" do
   group "adm"
 end
 
+remote_file "/var/lib/jenkins/plugins/git.hpi" do
+  source "http://mirrors.xmission.com/jenkins/plugins/git/latest/git.hpi"
+  owner "jenkins"
+  group "adm"
+end
+
 execute "restart" do
   command "/etc/init.d/jenkins restart"
 end
