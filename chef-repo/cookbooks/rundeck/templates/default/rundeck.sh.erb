@@ -1,5 +1,0 @@
-export RDECK_BASE=<%=node["rundeck"]["dir"]%>;
-ulimit -n 65535
-PATH=$PATH:$RDECK_BASE/tools/bin
-MANPATH=$MANPATH:$RDECK_BASE/docs/man
-nohup $RDECK_BASE/server/sbin/rundeckd $1 &
