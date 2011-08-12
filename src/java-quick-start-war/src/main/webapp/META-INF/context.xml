@@ -1,0 +1,4 @@
+<Context>
+  <Environment name="appEnvironment" value="production" type="java.lang.String" override="false"/>
+  <Resource name="jdbc/dbapp" auth="Container" type="javax.sql.DataSource" maxActive="100" maxIdle="30" maxWait="10000" username="root" password="root" driverClassName="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost:3306/dc1bc3e95e0f24d49bfda761277b1035d"/>
+</Context>

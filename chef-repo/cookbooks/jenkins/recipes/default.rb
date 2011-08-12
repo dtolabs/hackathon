@@ -29,6 +29,7 @@ rundeckUrl = node[:jenkins][:plugins][:rundeck][:url]
 
 include_recipe "apt"
 include_recipe "java"
+include_recipe "git"
 
 package "sendmail"
 
@@ -51,8 +52,10 @@ end
 
 service "jenkins" do
   supports [:stop, :start, :restart]
-  action [:restart, :enable]
+  action [:enable, :start]
 end
+
+#action [:restart, :enable]
 
 
 directory "/var/lib/jenkins/plugins" do
@@ -90,3 +93,5 @@ template "/var/lib/jenkins/org.jenkinsci.plugins.rundeck.RundeckNotifier.xml" do
   })
   notifies :restart, resources(:service => "jenkins")
 end
+
+include_recipe "jenkins::maven"
