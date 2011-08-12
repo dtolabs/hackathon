@@ -1,7 +1,8 @@
-maintainer       "YOUR_COMPANY_NAME"
-maintainer_email "YOUR_EMAIL"
+maintainer       "DTO Solutions"
+maintainer_email "connaryscott@gmail.com"
 license          "All rights reserved"
 description      "Installs/Configures jenkins"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.rdoc'))
+depends          "apt"
+depends          "java"
 version          "0.0.1"
-depends		"apt"

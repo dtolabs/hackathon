@@ -1,14 +1,15 @@
 {
-  "name": ".",
+  "name": "jenkins",
   "description": "Installs/Configures jenkins",
   "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES:\n\n= USAGE:\n\n",
-  "maintainer": "YOUR_COMPANY_NAME",
-  "maintainer_email": "YOUR_EMAIL",
+  "maintainer": "DTO Solutions",
+  "maintainer_email": "connaryscott@gmail.com",
   "license": "All rights reserved",
   "platforms": {
   },
   "dependencies": {
-    "apt": ">= 0.0.0"
+    "apt": ">= 0.0.0",
+    "java": ">= 0.0.0"
   },
   "recommendations": {
   },
