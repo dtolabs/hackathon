@@ -1,9 +1,9 @@
 #
 # Author:: Seth Chisamore (<schisamo@opscode.com>)
 # Cookbook Name:: java
-# Recipe:: default
+# Recipe:: openjdk
 #
-# Copyright 2008-2011, Opscode, Inc.
+# Copyright 2010-2011, Opscode, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,6 +16,24 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 
-include_recipe "java::#{node['java']['install_flavor']}"
+pkgs = value_for_platform(
+  ["centos","redhat","fedora"] => {
+    "default" => ["java-1.6.0-openjdk","java-1.6.0-openjdk-devel"]
+  },
+  "default" => ["openjdk-6-jdk","default-jdk"]
+)
+
+execute "update-java-alternatives" do
+  command "update-java-alternatives -s java-6-openjdk"
+  returns [0,2]
+  action :nothing
+  only_if { platform?("ubuntu", "debian") }
+end
+
+pkgs.each do |pkg|
+  package pkg do
+    action :install
+    notifies :run, "execute[update-java-alternatives]"
+  end
+end
