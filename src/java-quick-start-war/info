@@ -1,0 +1,59 @@
+<project name="bookstore1" default="build" basedir=".">
+
+   <property name="maven_settings.xml" value="${basedir}/settings.xml"/>
+   <property name="pkg.server" value="localhost:8080"/>
+   <property name="repository.id" value="nexus"/>
+   <property name="repository.name" value="snapshots"/>
+   <property name="group.id" value="bookstore1"/>
+   <property name="artifact.type" value="war"/>
+   <property name="artifact.id" value="bookstore1"/>
+   <property name="artifact.version" value="0.0.1-SNAPSHOT"/>
+   <property name="artifact.filename" value="${artifact.id}.${artifact.type}"/>
+
+   <target name="build">
+   </target> 
+   <target name="deploy">
+      <fail message="${basedir}/dist/${artifact.filename} not available">
+         <condition>
+            <not>
+               <available file="${basedir}/dist/${artifact.filename}"/>
+            </not>
+         </condition>
+      </fail>
+<echo>DEBUG:
+         arg line="-s ${maven_settings.xml} deploy:deploy-file -DgroupId=${group.id} -DartifactId=cookbook-${artifact.id} -Dversion=${artifact.version} -Dpackaging=${artifact.type} -Dfile=${basedir}/dist/bookstore1.${artifact.type} -Durl=http://${pkg.server}/nexus/content/repositories/${repository.name} -DrepositoryId=${repository.id}"/
+</echo>
+      <exec executable="mvn" failonerror="true">
+         <arg line="-s ${maven_settings.xml} deploy:deploy-file -DgroupId=${group.id} -DartifactId=cookbook-${artifact.id} -Dversion=${artifact.version} -Dpackaging=${artifact.type} -Dfile=${basedir}/dist/bookstore1.${artifact.type} -Durl=http://${pkg.server}/nexus/content/repositories/${repository.name} -DrepositoryId=${repository.id}"/>
+      </exec> 
+   </target> 
+
+
+
+<!--
+$(role)-deploy:
+        if ! test -f dist/cookbooks-$(role).tgz ; then echo dist/cookbooks-$(role).tgz does not exist; exit 1; fi
+        mvn -s `pwd`/../../common/conf/settings.xml deploy:deploy-file -DgroupId=$(role) -DartifactId=cookbook-$(role) -Dversion=$($(role)_cookbooks_version) -Dpackaging=tgz -Dfile=`pwd`/dist/cookbooks-$(role).tgz -Durl=http://${pkg.server}/nexus/content/repositories/${repository.name} -DrepositoryId=nexus
+
+
+REPOSITORY=snapshots
+
+ROLES=jenkins nexus cloudfoundry
+
+jenkins_cookbooks=cookbooks/jenkins cookbooks/apt cookbooks/java cookbooks/buildtools cookbooks/cloudscripts
+jenkins_cookbooks_version=0.0.1-SNAPSHOT
+
+nexus_cookbooks=cookbooks/nexus
+nexus_cookbooks_version=0.0.1-SNAPSHOT
+
+cloudfoundry_cookbooks=cookbooks/cloudfoundry
+cloudfoundry_cookbooks_version=0.0.1-SNAPSHOT
+
+.PHONY: dist
+.PHONY: clean
+
+
+
+-->
+
+</project> 

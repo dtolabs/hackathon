@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  version="2.4"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+  <display-name>Demo DB App</display-name>
+  <servlet>
+    <servlet-name>DbAppServlet</servlet-name>
+    <servlet-class>com.opscode.dbapp.web.DbAppServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DbAppServlet</servlet-name>
+    <url-pattern>/products</url-pattern>
+  </servlet-mapping>
+  <env-entry>
+    <env-entry-name>appEnvironment</env-entry-name>
+    <env-entry-type>java.lang.String</env-entry-type>
+  </env-entry>
+  <resource-ref>
+    <description>DB Connection</description>
+    <res-ref-name>jdbc/dbapp</res-ref-name>
+    <res-type>javax.sql.DataSource</res-type>
+    <res-auth>Container</res-auth>
+  </resource-ref>
+</web-app>
