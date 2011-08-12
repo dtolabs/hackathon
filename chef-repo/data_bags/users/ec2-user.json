@@ -1,7 +1,7 @@
     {
       "id": "ec2-user",
       "groups": "sysadmin",
-      "uid": 2008,
+      "uid": 2000,
       "shell": "\/bin\/bash",
       "comment": "ec2 Account",
       "files": {
