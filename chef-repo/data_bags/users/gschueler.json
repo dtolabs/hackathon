@@ -1,0 +1,13 @@
+{
+  "id": "gschueler",
+  "groups": "sysadmin",
+  "uid": 2003,
+  "shell": "\/bin\/bash",
+  "comment": "Greg Schueler",
+  "nagios": {
+    "pager": "9192449680@txt.att.net",
+    "email": "greg@dtosolutions.com"
+  },
+  "ssh_keys": "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAof8nzBItWA8K71fbtZVogqX8U9wwqamALGdKsH0qdB3eLejjcVjlOL5EM2SF7JdyVHjdnLI7Sx0NU9wN/IGGqmW5x4giFGLaiQdxO7OUdfoSbV8ORwGKJvAO5TeMy/uTYWDu406sEXGgQ7ndsfnuGYUEpCDzYyKXZR5+ScdYdbu63kLxgq3fos/hoy5uTvxuT4hSlsWr5D4+qyD+Eotmy1Git6EK1BxnwQk6zpg6p5d8j2vLTc2VVOSN2L6I0kWA2jpB1QzRALxsHguCWQIPmf9BkmUNhSjFDQKu53tlbxgufuahdlUBVxtMNUWyR0cxuJBZ3UIe4mmD0PoZy5YbgQ== greg@Gozer.local"
+}
+

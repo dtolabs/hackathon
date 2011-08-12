@@ -3,7 +3,12 @@ description "Base role applied to all nodes."
     override_attributes(
       "munin" => {"server_role" => "datacollect"},
       "chef_client" => {"client_interval" => "3600"},
-      "chef_client" => {"init_style" => "runit"}
+      "chef_client" => {"init_style" => "runit"},
+      "authorization" => {
+        "sudo" => {
+          "passwordless" => true
+        }
+      }
     )
    run_list(
       "recipe[apt]",
@@ -13,3 +18,4 @@ description "Base role applied to all nodes."
       "recipe[runit]",
       "recipe[chef-client::service]"
 )
+
