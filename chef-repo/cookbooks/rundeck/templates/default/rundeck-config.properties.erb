@@ -5,7 +5,7 @@ loglevel.default=INFO
 rss.enabled=true
 grails.serverURL=http://<%= node[:fqdn]%>:<%= node[:rundeck][:port]%><%= node[:rundeck][:web][:context]%>
 dataSource.dbCreate = update
-dataSource.url = jdbc:hsqldb:file:<%= node[:rundeck][:dir]%>/server/data;shutdown=true
+dataSource.url = jdbc:hsqldb:file:<%= node[:rundeck][:dir]%>/server/data/grailsdb;shutdown=true
 
 #
 #Map rundeck actions to allowed roles
