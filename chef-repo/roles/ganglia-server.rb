@@ -1,6 +1,7 @@
 name "ganglia-server"
   description "Ganglie Server Role"
   run_list(
-    "role[ganglia::client]",
-    "role[ganglia::server]"
+    "recipe[apache2]",
+    "recipe[ganglia::client]",
+    "recipe[ganglia::server]"
 )
