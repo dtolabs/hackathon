@@ -26,3 +26,9 @@ default[:jenkins][:maven][:version] = "3"
 default[:jenkins][:maven][:repository][:server][:id] = "nexus"
 default[:jenkins][:maven][:repository][:server][:username] = "admin"
 default[:jenkins][:maven][:repository][:server][:password] = "admin123"
+
+#
+# git plugin config
+#
+default[:jenkins][:plugins][:git][:globalConfigName] = "dtolabs"
+default[:jenkins][:plugins][:git][:globalConfigEmail] = "everyone@dtosolutions.com"

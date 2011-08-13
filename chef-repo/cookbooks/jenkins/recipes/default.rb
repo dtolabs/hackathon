@@ -27,6 +27,12 @@ rundeckUser = node[:jenkins][:plugins][:rundeck][:user]
 rundeckPassword = node[:jenkins][:plugins][:rundeck][:password]
 rundeckUrl = node[:jenkins][:plugins][:rundeck][:url]
 
+#
+# git plugin config
+#
+gitPluginGlobalConfigName = node[:jenkins][:plugins][:git][:globalConfigName]
+gitPluginGlobalConfigEmail = node[:jenkins][:plugins][:git][:globalConfigEmail]
+
 include_recipe "apt"
 include_recipe "java"
 include_recipe "git"
@@ -94,5 +100,17 @@ template "/var/lib/jenkins/org.jenkinsci.plugins.rundeck.RundeckNotifier.xml" do
   })
   notifies :restart, resources(:service => "jenkins")
 end
+
+template "/var/lib/jenkins/hudson.plugins.git.GitSCM.xml" do
+  source "var/lib/jenkins/hudson.plugins.git.GitSCM.xml.erb"
+  mode 0644
+  owner "jenkins"
+  group "nogroup"
+  variables({
+     :name => gitPluginGlobalConfigName, 
+     :email => gitPluginGlobalConfigEmail
+  })
+end
+
 
 include_recipe "jenkins::maven"
