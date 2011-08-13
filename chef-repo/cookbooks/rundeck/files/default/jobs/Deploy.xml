@@ -1,0 +1,55 @@
+<joblist>
+  <job>
+    <id>f23b349c-8a3e-426d-8a88-0e10ddcc9042</id>
+    <loglevel>INFO</loglevel>
+    <sequence keepgoing='false' strategy='node-first'>
+      <command>
+        <scriptargs />
+        <script><![CDATA[echo "DEBUG, version is: @option.version@"
+
+tmpDir=$(mktemp -d)
+
+echo "tmpDir is $tmpDir"
+
+echo "DEBUG, running: curl -f -k -L -o ${tmpDir}/dbapp.war  @option.repoUrl@/nexus/service/local/artifact/maven/redirect?r=snapshots&g=com.opscode&a=dbapp&v=@option.version@&e=war"
+
+curl -f -k -L -o ${tmpDir}/dbapp.war  "@option.repoUrl@/nexus/service/local/artifact/maven/redirect?r=snapshots&g=com.opscode&a=dbapp&v=@option.version@&e=war"
+
+
+~/.cloudfoundry/devbox/deploy/rubies/ruby-1.9.2-p180/bin/vmc push @option.appName@ --path ${tmpDir} --mem @option.mem@ -n
+]]></script>
+      </command>
+    </sequence>
+    <description>Deploy the dbapp war file to the development Cloud Foundry instance</description>
+    <name>Deploy</name>
+    <context>
+      <project>hackathon</project>
+      <options>
+        <option required='true' name='appName'>
+          <description>name of the app to deploy</description>
+        </option>
+        <option name='mem' value='512m'>
+          <description>memory to set for the app</description>
+        </option>
+        <option name='repoUrl' enforcedvalues='true' values='http://ec2-50-19-39-6.compute-1.amazonaws.com:8080' value='http://ec2-50-19-39-6.compute-1.amazonaws.com:8080'>
+          <description>server containing artifacts to deploy</description>
+        </option>
+        <option required='true' name='version' enforcedvalues='true' valuesUrl='http://ec2-50-19-39-6.compute-1.amazonaws.com:8080/nexus/service/local/rundeck/options/version?r=snapshots&amp;g=com.opscode&amp;a=dbapp'>
+          <description>dbapp version </description>
+        </option>
+      </options>
+    </context>
+    <dispatch>
+      <threadcount>1</threadcount>
+      <keepgoing>false</keepgoing>
+      <excludePrecedence>true</excludePrecedence>
+    </dispatch>
+    <uuid>f23b349c-8a3e-426d-8a88-0e10ddcc9042</uuid>
+    <nodefilters>
+      <include>
+        <name>50.19.197.55</name>
+      </include>
+    </nodefilters>
+    <group>dbapp/dev</group>
+  </job>
+</joblist>
