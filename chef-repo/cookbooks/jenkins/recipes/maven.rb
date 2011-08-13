@@ -15,3 +15,13 @@ template "/var/lib/jenkins/tools/maven#{mavenVersion}/conf/settings.xml" do
      :password => mavenRepoPassword
   })
 end
+
+template "/var/lib/jenkins/hudson.tasks.Maven.xml" do
+  source "var/lib/jenkins/hudson.tasks.Maven.xml.erb"
+  mode 0644
+  owner "jenkins"
+  group "nogroup"
+  variables({
+     :version => mavenVersion
+  })
+end
