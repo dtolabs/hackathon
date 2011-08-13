@@ -32,6 +32,7 @@ include_recipe "java"
 include_recipe "git"
 
 package "sendmail"
+package "git-core"
 
 apt_repository "jenkins" do
   uri "http://pkg.jenkins-ci.org/debian"
