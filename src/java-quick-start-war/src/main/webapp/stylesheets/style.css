@@ -1,0 +1,15 @@
+body {
+  font-family: Verdana, Arial, Sans-Serif;
+}
+
+table {
+  padding: 10px;
+}
+
+th {
+  text-align: left;
+}
+
+td {
+  padding: 10px 20px;
+}

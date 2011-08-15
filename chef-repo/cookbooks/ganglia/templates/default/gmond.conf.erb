@@ -8,7 +8,7 @@ globals {
   max_udp_msg_len = 1472        
   mute = no             
   deaf = no             
-  host_dmax = 0 /*secs */ 
+  host_dmax = 1200 /*secs */ 
   cleanup_threshold = 300 /*secs */ 
   gexec = no             
   send_metadata_interval = 0     
@@ -18,7 +18,7 @@ globals {
  * of a <CLUSTER> tag.  If you do not specify a cluster tag, then all <HOSTS> will 
  * NOT be wrapped inside of a <CLUSTER> tag. */ 
 cluster { 
-  name = "<%= @cluster_name %>"
+  name = "Crowbar PoC" 
   owner = "unspecified" 
   latlong = "unspecified" 
   url = "unspecified" 
@@ -33,6 +33,7 @@ host {
    used to only support having a single channel */ 
 udp_send_channel { 
   mcast_join = 239.2.11.71 
+  mcast_if = <%= @admin_interface %>
   port = 8649 
   ttl = 1 
 } 
@@ -40,6 +41,7 @@ udp_send_channel {
 /* You can specify as many udp_recv_channels as you like as well. */ 
 udp_recv_channel { 
   mcast_join = 239.2.11.71 
+  mcast_if = <%= @admin_interface %>
   port = 8649 
   bind = 239.2.11.71 
 } 

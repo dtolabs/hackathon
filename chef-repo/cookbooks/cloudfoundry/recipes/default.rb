@@ -21,6 +21,13 @@ git node[:cloudfoundry][:path] do
   action :sync
 end
 
+template "#{node[:cloudfoundry][:deployment]}/deploy.json" do
+  source "deploy.json.erb"
+  owner node[:deployment][:user]
+  group node[:deployment][:group]
+  mode "0644"
+end
+
 # Gem packages have transient failures, so try once while ignoring failures
 gem_package "vmc" do
   ignore_failure true
