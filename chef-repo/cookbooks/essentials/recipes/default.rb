@@ -28,3 +28,13 @@ directory File.join(node[:deployment][:config_path], "staging") do
   recursive true
   action :create
 end
+
+%w{/var/vcap/db /var/vcap/sys/log /var/vcap/data/cloud_controller/tmp /var/vcap/data/db /var/vcap.local/staging /home/ubuntu/.cloudfoundry/devbox/sys /home/ubuntu/.cloudfoundry/devbox/sys/log/}.each do |d|
+  directory d do
+    owner node[:deployment][:user]
+    group node[:deployment][:group]
+    mode "0755"
+    recursive true
+    action :create
+  end
+end

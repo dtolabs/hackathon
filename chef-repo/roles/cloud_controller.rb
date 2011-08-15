@@ -1,5 +1,5 @@
-name "workbench"
-  description "workbench and tools node"
+name "cloud_controller"
+  description "CloudFoundry controller role"
   run_list(
     "recipe[essentials]",
     "recipe[ruby]",
