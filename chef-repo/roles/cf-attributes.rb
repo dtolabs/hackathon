@@ -12,8 +12,12 @@ name "cf-attributes"
         :path => "/home/ubuntu/.cloudfoundry/devbox/deploy/mongodb"
     },
     :cloudfoundry => {
-      :path => "/home/ubuntu/.cloudfoundry/devbox/vcap",
+      :path => "/home/ubuntu/vcap",
       :revision => "HEAD"
+    }, 
+    :mongodb => {
+          :version => "1.8.1",
+          :path => "/home/ubuntu/.cloudfoundry/devbox/deploy/mongodb"
     },
     :mysql => {
       :server_repl_password => "root",
