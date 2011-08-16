@@ -9,11 +9,11 @@ name "cf-dea"
     "recipe[rabbitmq]",
     "recipe[mysql]", 
     "recipe[mysql::server]",
-    "recipe[nodejs]")
-#    "recipe[erlang]" ,
-#    "recipe[java]" ,
-#    "recipe[redis]"
-#  )
+    "recipe[nodejs]",
+    "recipe[erlang]" ,
+    "recipe[java]" ,
+    "recipe[redis]"
+  )
   
 
 
