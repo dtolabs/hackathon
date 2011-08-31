@@ -12,7 +12,7 @@ name "cf-attributes"
         :path => "/home/ubuntu/.cloudfoundry/devbox/deploy/mongodb"
     },
     :cloudfoundry => {
-      :path => "/home/ubuntu/vcap",
+      :path => "/home/ubuntu/.cloudfoundry/devbox/vcap",
       :revision => "HEAD"
     }, 
     :mongodb => {

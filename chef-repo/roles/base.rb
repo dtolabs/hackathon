@@ -8,7 +8,14 @@ description "Base role applied to all nodes."
         "sudo" => {
           "passwordless" => true
         }
-      }
+      },
+      "dynect": {
+            "customer": "demo-dtosolutions",
+            "username": "3656vT-hackday",
+            "password": "hackd@y",
+            "zone": "ZONE",
+            "domain": "DOMAIN"
+          }
     )
    run_list(
       "recipe[apt]",
@@ -16,6 +23,7 @@ description "Base role applied to all nodes."
       "recipe[sudo]",
       "recipe[tools]",
       "recipe[runit]",
-      "recipe[chef-client::service]"
+      "recipe[chef-client::service]",
+      "recipe[dynect]"
 )
 

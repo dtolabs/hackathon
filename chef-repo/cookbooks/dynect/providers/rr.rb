@@ -44,6 +44,8 @@ end
 
 def action_create
   unless @rr
+    Chef::Log.info("jmw999 Added #{@new_resource.fqdn} to dynect")
+    Chef::Log.info("jmw999 Added #{@new_resource.rdata} to dynect")
     rr = DynectRest::Resource.new(@dyn, @new_resource.record_type, @new_resource.zone)
     rr.fqdn(@new_resource.fqdn)
     rr.ttl(@new_resource.ttl) if @new_resource.ttl
