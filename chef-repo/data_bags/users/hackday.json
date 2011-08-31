@@ -1,0 +1,14 @@
+{
+  "id": "hackday",
+  "groups": "sysadmin",
+  "uid": 2001,
+  "shell": "\/bin\/bash",
+  "comment": "Hackday User",
+  "nagios": {
+    "pager": "dummy@pager.com",
+    "email": "dummy@domain.com"
+  },
+  "ssh_keys": "",
+  "password": "$1$mp7PmohJ$HSzSg8gwJc8CvbCRlJfx6."
+}
+
