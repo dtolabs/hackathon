@@ -24,7 +24,7 @@ description "Base role applied to all nodes."
       "recipe[tools]",
       "recipe[runit]",
       "recipe[chef-client::service]",
-      "recipe[dynect]"
+      "recipe[dynect]",
       "recipe[dynect::ec3]"
 )
 
