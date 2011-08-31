@@ -38,14 +38,30 @@ search(:users, 'groups:sysadmin') do |u|
     action :nothing
   end
 
-  user u['id'] do
-    uid u['uid']
-    gid u['gid']
-    shell u['shell']
-    comment u['comment']
-    supports :manage_home => true
-    home home_dir
-    notifies :create, "ruby_block[reset group list]", :immediately
+  if u['password'].empty? || u['password'].nil?
+
+    user u['id'] do
+      uid u['uid']
+      gid u['gid']
+      shell u['shell']
+      comment u['comment']
+      supports :manage_home => true
+      home home_dir
+      notifies :create, "ruby_block[reset group list]", :immediately
+    end
+  
+  else
+    
+    user u['id'] do
+      uid u['uid']
+      gid u['gid']
+      shell u['shell']
+      comment u['comment']
+      supports :manage_home => true
+      password u['password']
+      home home_dir
+      notifies :create, "ruby_block[reset group list]", :immediately
+    end
   end
 
   directory "#{home_dir}/.ssh" do

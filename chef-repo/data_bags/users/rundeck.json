@@ -1,7 +1,7 @@
     {
       "id": "rundeck",
       "groups": "sysadmin",
-      "uid": 2006,
+      "uid": 2003,
       "shell": "\/bin\/bash",
       "comment": "Rundeck Account",
       "files": {

@@ -13,7 +13,7 @@ description "Base role applied to all nodes."
             "customer" => "demo-dtosolutions",
             "username" => "hackday",
             "password" => "h@ckday",
-            "zone" => "ZONE",
+            "zone" => "dtolabs.com",
             "domain" => "dtolabs.com"
           }
     )
