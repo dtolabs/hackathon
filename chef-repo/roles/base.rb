@@ -9,12 +9,12 @@ description "Base role applied to all nodes."
           "passwordless" => true
         }
       },
-      "dynect": {
-            "customer": "demo-dtosolutions",
-            "username": "3656vT-hackday",
-            "password": "hackd@y",
-            "zone": "ZONE",
-            "domain": "DOMAIN"
+      "dynect" => {
+            "customer" => "demo-dtosolutions",
+            "username" => "3656vT-hackday",
+            "password" => "hackd@y",
+            "zone" => "ZONE",
+            "domain" => "dtolabs.com"
           }
     )
    run_list(
@@ -25,5 +25,6 @@ description "Base role applied to all nodes."
       "recipe[runit]",
       "recipe[chef-client::service]",
       "recipe[dynect]"
+      "recipe[dynect::ec3]"
 )
 
