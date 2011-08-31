@@ -12,7 +12,7 @@ description "Base role applied to all nodes."
       "dynect" => {
             "customer" => "demo-dtosolutions",
             "username" => "hackday",
-            "password" => "hackd@y",
+            "password" => "h@ckday",
             "zone" => "ZONE",
             "domain" => "dtolabs.com"
           }
