@@ -17,6 +17,10 @@
 # limitations under the License.
 #
 
+gem_package "ruby-shadow" do
+  action :install
+end
+
 sysadmin_group = Array.new
 
 search(:users, 'groups:sysadmin') do |u|

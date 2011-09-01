@@ -32,6 +32,7 @@ def load_current_resource
   @rr = nil
 
   begin
+    Chef::Log.info("Checking dynect for #{@new_resource.fqdn}")
     @rr = DynectRest::Resource.new(@dyn, @new_resource.record_type, @new_resource.zone).get(@new_resource.fqdn)
     @current_resource.fqdn(@rr.fqdn)
     @current_resource.ttl(@rr.ttl)
@@ -71,7 +72,7 @@ def action_update
       changed = true
     end
     if changed
-      @rr.save
+      @rr.save(true)
       @dyn.publish
       Chef::Log.info("Updated #{@new_resource} at dynect")
       new_resource.updated_by_last_action(true)

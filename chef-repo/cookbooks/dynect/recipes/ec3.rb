@@ -19,7 +19,7 @@
 
 include_recipe 'dynect'
 
-new_hostname = "#{node["hostname"]}"
+new_hostname = "#{node["nam"]}"
 Chef::Log.info("Recipe Added #{@new_hostname} to dynect")
 new_fqdn = "#{new_hostname}.#{node["dynect"]["domain"]}"
 Chef::Log.info("Recipe Added #{@new_fqdn} to dynect")
