@@ -19,7 +19,7 @@
 
 include_recipe 'dynect'
 
-new_hostname = "#{node["nam"]}"
+new_hostname = "#{node["name"]}"
 Chef::Log.info("Recipe Added #{@new_hostname} to dynect")
 new_fqdn = "#{new_hostname}.#{node["dynect"]["domain"]}"
 Chef::Log.info("Recipe Added #{@new_fqdn} to dynect")
@@ -29,7 +29,7 @@ dynect_rr new_hostname do
   fqdn new_fqdn
   rdata({ "cname" => "#{node[:ec2][:public_hostname]}." })
   customer node["dynect"]["customer"]
-  username node["dynect"]["username"]
+  username node["dynect"]["usiername"]
   password node["dynect"]["password"]
   zone     node["dynect"]["zone"]
   ttl      30
@@ -45,13 +45,13 @@ ruby_block "edit resolv conf" do
   end
 end
 
-ruby_block "edit etc hosts" do
-  block do
-    rc = Chef::Util::FileEdit.new("/etc/hosts")
-    rc.search_file_replace_line(/^127\.0\.0\.1 localhost$/, "127.0.0.1 #{new_fqdn} #{new_hostname} localhost")
-    rc.write_file
-  end
-end
+#ruby_block "edit etc hosts" do
+#  block do
+#  rc = Chef::Util::FileEdit.new("/etc/hosts")
+#    rc.search_file_replace_line(/^127\.0\.0\.1 localhost$/, "127.0.0.1 #{new_fqdn} #{new_hostname} localhost")
+#    rc.write_file
+#  end
+#end
 
 execute "hostname --file /etc/hostname" do
   action :nothing
