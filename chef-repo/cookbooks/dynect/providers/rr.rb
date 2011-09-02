@@ -51,6 +51,7 @@ def action_create
     rr.fqdn(@new_resource.fqdn)
     rr.ttl(@new_resource.ttl) if @new_resource.ttl
     rr.rdata = @new_resource.rdata
+    rr.record_type = @new_resource.record_type
     rr.save
     @dyn.publish
     Chef::Log.info("Added #{@new_resource} to dynect")
@@ -72,6 +73,7 @@ def action_update
       changed = true
     end
     if changed
+      rr.record_type = @new_resource.record_type
       @rr.save(true)
       @dyn.publish
       Chef::Log.info("Updated #{@new_resource} at dynect")
@@ -87,6 +89,7 @@ def action_replace
   rr.fqdn(@new_resource.fqdn)
   rr.ttl(@new_resource.ttl) if @new_resource.ttl
   rr.rdata = @new_resource.rdata
+  rr.record_type = @new_resource.record_type
   rr.save(true)
   @dyn.publish
   Chef::Log.info("Replaced #{@new_resource} at dynect")
