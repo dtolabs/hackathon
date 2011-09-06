@@ -15,6 +15,6 @@ run_list(
       "recipe[users::sysadmins]",
       "recipe[sudo]",
       "recipe[tools]",
-      "recipe[runit]",
+      "recipe[runit]"
 )
 

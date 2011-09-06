@@ -16,12 +16,12 @@ run_list(
   "role[mongodb_gateway]"
 )
 override_attributes(
-	"cloudfoundry": {
-		"home":"/home/hackday/cloudfoundry"
+	"cloudfoundry" => {
+		"home" => "/home/hackday/cloudfoundry"
 	},
-	"jobs":{
-		"install":{	"all":null },
-		"installed":null
+	"jobs" => {
+		"install" => {	"all" => nil },
+		"installed" => nil
 	},
-  "deployment":{"group":"1000","name":"devbox","user":"hackday"}
+  "deployment" => {"group" => "1000","name" => "devbox","user" => "hackday"}
 )
