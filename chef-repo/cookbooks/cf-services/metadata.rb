@@ -5,5 +5,5 @@ description      "Installs/Configures services"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.rdoc'))
 version          "0.0.1"
 
-requires "cf-postgresql"
-requires "cf-mysql"
+depends "cf-postgresql"
+depends "cf-mysql"
