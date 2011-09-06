@@ -1,6 +1,7 @@
 name "cf-dea"
 description "CloudFoundry DEA role"
 run_list(
+  "recipe[cf-deployment]",
   "recipe[cf-essentials]",
   "recipe[cf-ruby]",
   "recipe[cf-ruby::ruby18]",
