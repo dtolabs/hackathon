@@ -1,19 +1,14 @@
 name "cf-dea"
-  description "CloudFoundry DEA role"
-  run_list(
-    "recipe[essentials]",
-    "recipe[ruby]",
-    "recipe[ruby::ruby18]",
-    "recipe[dea]",
-    "recipe[mongodb]",
-    "recipe[rabbitmq]",
-    "recipe[mysql]", 
-    "recipe[mysql::server]",
-    "recipe[nodejs]",
-    "recipe[erlang]" ,
-    "recipe[java]" ,
-    "recipe[redis]"
-  )
+description "CloudFoundry DEA role"
+run_list(
+  "recipe[cf-essentials]",
+  "recipe[cf-ruby]",
+  "recipe[cf-ruby::ruby18]",
+  "recipe[dea]",
+  "recipe[cf-nodejs]",
+  "recipe[cf-erlang]",
+  "recipe[cf-java]"
+)
   
 
 

@@ -1,10 +1,10 @@
 name "cf-router"
   description "CloudFoundry Router Role"
   run_list(
-    "recipe[essentials]",
-    "recipe[ruby]",
-    "recipe[nginx]",
-    "recipe[router]"
+    "recipe[cf-essentials]",
+    "recipe[cf-ruby]",
+    "recipe[cf-nginx]",
+    "recipe[cf-router]"
   )
 
 
