@@ -8,12 +8,12 @@ description "Base role applied to all nodes."
       :worker_threads => "100"
     },
     :cloudfoundry => {
-      :path => "/home/openstack/.cloudfoundry/devbox/vcap",
+      :path => "/home/hackday/.cloudfoundry/devbox/vcap",
       :revision => "HEAD"
     },
     :mongodb => {
       :version => "1.8.1",
-      :path => "/home/openstack/.cloudfoundry/devbox/deploy/mongodb"
+      :path => "/home/hackday/.cloudfoundry/devbox/deploy/mongodb"
     },
     :mysql => {
       :server_repl_password => "root",
@@ -23,14 +23,14 @@ description "Base role applied to all nodes."
     },
     :nodejs => {
       :version => "0.4.8",
-      :path => "/home/openstack/.cloudfoundry/devbox/deploy/nodejs"
+      :path => "/home/hackday/.cloudfoundry/devbox/deploy/nodejs"
     },
     :nginx => {
-      :vcap_log => "/home/openstack/.cloudfoundry/devbox/sys/log/vcap.access.log"
+      :vcap_log => "/home/hackday/.cloudfoundry/devbox/sys/log/vcap.access.log"
     },
     :ruby18 => {
       :version => "1.8.7-p334",
-      :path => "/home/openstack/.cloudfoundry/devbox/deploy/rubies/ruby-1.8.7-p334"
+      :path => "/home/hackday/.cloudfoundry/devbox/deploy/rubies/ruby-1.8.7-p334"
     },
     :services => ["redis","mysql","mongodb","postgresql"],
     :rubygems => {
@@ -40,24 +40,24 @@ description "Base role applied to all nodes."
     },
     :ruby => {
       :version => "1.9.2-p180",
-      :path => "/home/openstack/.cloudfoundry/devbox/deploy/rubies/ruby-1.9.2-p180"
+      :path => "/home/hackday/.cloudfoundry/devbox/deploy/rubies/ruby-1.9.2-p180"
     },
     :deployment => {
       :group => "1000",
       :name => "devbox",
-      :config_path => "/home/openstack/.cloudfoundry/devbox/config",
+      :config_path => "/home/hackday/.cloudfoundry/devbox/config",
       :user => "openstack",
-      :home => "/home/openstack/.cloudfoundry/devbox"
+      :home => "/home/hackday/.cloudfoundry/devbox"
     },
     :erlang => {
       :version => "R14B02",
-      :path => "/home/openstack/.cloudfoundry/devbox/deploy/erlang"
+      :path => "/home/hackday/.cloudfoundry/devbox/deploy/erlang"
     },
     :postgresql => {:server_root_password => "root"},
     :redis => {
       :runner => "openstack",
       :version => "2.2.4",
-      :path => "/home/openstack/.cloudfoundry/devbox/deploy/redis"
+      :path => "/home/hackday/.cloudfoundry/devbox/deploy/redis"
     }
   )
    run_list(
