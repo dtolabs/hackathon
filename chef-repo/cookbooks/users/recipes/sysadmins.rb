@@ -87,3 +87,16 @@ group "sysadmin" do
   gid 2300
   members sysadmin_group
 end
+
+service 'ssh' do
+  supports :restart => true, :reload => true, :status => true
+  action :enable
+end
+
+template '/etc/ssh/sshd_config' do
+  source 'sshd_config.erb'
+  owner root
+  group root
+  mode '0644'
+  notifies :restart, "service[ssh]"
+end
