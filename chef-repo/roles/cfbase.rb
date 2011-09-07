@@ -1,5 +1,5 @@
 name "cfbase"
-description "Base role applied to all nodes."
+description "CloudFoundry base role - installs everything."
   override_attributes(
     :apache2 => {
       :prefork => { :min_spareservers => "5" }
@@ -43,10 +43,10 @@ description "Base role applied to all nodes."
       :path => "/home/hackday/.cloudfoundry/devbox/deploy/rubies/ruby-1.9.2-p180"
     },
     :deployment => {
-      :group => "1000",
+      :group => "hackday",
       :name => "devbox",
       :config_path => "/home/hackday/.cloudfoundry/devbox/config",
-      :user => "openstack",
+      :user => "hackday",
       :home => "/home/hackday/.cloudfoundry/devbox"
     },
     :erlang => {

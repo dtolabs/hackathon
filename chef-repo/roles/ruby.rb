@@ -1,4 +1,4 @@
-name "cf-ruby"
+name "ruby"
   description "CloudFoundry Ruby Role"
   run_list(
     "recipe[essentials]",
