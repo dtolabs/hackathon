@@ -7,7 +7,7 @@ run_list(
   "role[ccdb]",
   "role[cloud_controller]",
   "role[health_manager]",
-  "role[dea]",
+  "role[cf-dea]",
   "role[cf-redis]",
   "role[cf-mysql]",
   "role[cf-mongodb]",
