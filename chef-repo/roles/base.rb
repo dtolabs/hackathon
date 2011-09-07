@@ -23,8 +23,6 @@ description "Base role applied to all nodes."
       "recipe[sudo]",
       "recipe[tools]",
       "recipe[runit]",
-      "recipe[chef-client::service]",
-      "recipe[dynect]",
-      "recipe[dynect::ec3]"
+      "recipe[chef-client::service]"
 )
 
