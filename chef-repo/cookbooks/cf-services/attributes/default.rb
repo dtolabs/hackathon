@@ -23,3 +23,5 @@ default[:service][:redis][:index] = "0"
 default[:service][:mongodb][:available_memory] = "4096"
 default[:service][:mongodb][:max_memory] = "128"
 default[:service][:mongodb][:index] = "0"
+
+default[:services] = ["redis","mysql","mongodb","postgresql"]

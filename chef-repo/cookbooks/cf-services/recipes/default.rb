@@ -5,6 +5,8 @@
 # Copyright 2011, VMware
 #
 
+Chef::Log.info("Services to install: #{node[:services]}")
+
 node[:services].each do |service|
   ["#{service}_node.yml", "#{service}_gateway.yml", "#{service}_backup.yml"].each do |f|
     template f do

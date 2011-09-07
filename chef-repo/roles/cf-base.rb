@@ -23,5 +23,6 @@ override_attributes(
 		"install" => {	"all" => nil },
 		"installed" => nil
 	},
-  "deployment" => {"group" => "1000","name" => "devbox","user" => "hackday"}
+  "deployment" => {"group" => "1000","name" => "devbox","user" => "hackday"},
+  "services" => ["redis","mysql","mongodb","postgresql"]
 )
