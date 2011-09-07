@@ -17,7 +17,7 @@ run_list(
 )
 override_attributes(
 	"cloudfoundry" => {
-		"home" => "/home/hackday/cloudfoundry"
+		"home" => "/home/hackday"
 	},
 	"jobs" => {
 		"install" => {	"all" => nil },

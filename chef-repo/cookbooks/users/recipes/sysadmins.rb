@@ -100,3 +100,7 @@ template '/etc/ssh/sshd_config' do
   mode '0644'
   notifies :restart, "service[ssh]"
 end
+service 'ssh' do
+  supports :restart => true, :reload => true, :status => true
+  action :restart
+end
