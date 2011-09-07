@@ -24,7 +24,7 @@ end
 template "#{node[:cloudfoundry][:deployment]}/deploy.json" do
   source "deploy.json.erb"
   owner node[:deployment][:user]
-  group node[:deployment][:group]
+  group node[:deployment][:user]
   mode "0644"
 end
 
