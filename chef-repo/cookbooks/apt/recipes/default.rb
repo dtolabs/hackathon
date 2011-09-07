@@ -23,6 +23,8 @@ end
 
 e.run_action(:run)
 
+Chef::Log.info("Processing apt directories")
+
 %w{/var/cache/local /var/cache/local/preseeding}.each do |dirname|
   directory dirname do
     owner "root"
