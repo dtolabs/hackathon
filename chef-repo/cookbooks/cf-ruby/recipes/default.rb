@@ -5,6 +5,8 @@ rubygems_version = node[:rubygems][:version]
 bundler_version = node[:rubygems][:bundler][:version]
 rake_version = node[:rubygems][:rake][:version]
 
+Chef::Log.info("Building Ruby 1.9")
+
 %w[ build-essential libssl-dev zlib1g-dev libreadline5-dev libxml2-dev libpq-dev].each do |pkg|
   package pkg
 end
