@@ -21,4 +21,4 @@ if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 
-PATH=/home/<%= node[:ruby][:parh] %>/bin:$PATH
+PATH=<%= node[:ruby][:path] %>/bin:$PATH
