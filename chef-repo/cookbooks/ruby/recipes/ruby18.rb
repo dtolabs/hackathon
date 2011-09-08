@@ -1,7 +1,3 @@
-node[:ruby][:version] = node[:ruby18][:version]
-node[:ruby][:source] = node[:ruby18][:source]
-node[:ruby][:path] = node[:ruby18][:path]
-
 ruby_version = node[:ruby18][:version]
 ruby_source = node[:ruby18][:source]
 ruby_path = node[:ruby18][:path]
