@@ -9,7 +9,7 @@ require 'erubis'
 # As long as fog supports it.
 
 require 'lib/dns.rb'
-require 'env_config.rb'
+require '~/.hackday/env_config.rb'
 
 # fog api object instantiation. We'll pass these guys into things later.
 
