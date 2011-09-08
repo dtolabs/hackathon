@@ -83,9 +83,10 @@ search(:users, 'groups:sysadmin') do |u|
   end
 end
 
-service "ssh" do
-  supports :restart => true, :status => true, :reload => true
-  action :enable
+
+group "sysadmin" do
+  gid 2300
+  members sysadmin_group
 end
 
 template "/etc/ssh/sshd_config" do
@@ -96,7 +97,7 @@ template "/etc/ssh/sshd_config" do
   notifies :restart, "service[ssh]"
 end
 
-group "sysadmin" do
-  gid 2300
-  members sysadmin_group
+service "ssh" do
+  supports :restart => true, :status => true, :reload => true
+  action :restart
 end

@@ -40,3 +40,11 @@ end
     action :create
   end
 end
+
+#We also need to add ruby 1.9's bin path to the *beginning* of the deployment user's path:
+template "/home/#{node[:deployment][:user]}/.profile" do
+  source "profile.erb"
+  owner node[:deployment][:user]
+  group node[:deployment][:group]
+  mode "0755"
+end
