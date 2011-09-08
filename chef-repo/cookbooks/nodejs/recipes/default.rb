@@ -36,7 +36,7 @@ bash "Install Nodejs" do
   touch /tmp/step_5
   make
   touch /tmp/step_6
-  sudo make install
+  make install
   rm /tmp/step_*
   EOH
   not_if do
