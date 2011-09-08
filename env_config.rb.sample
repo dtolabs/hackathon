@@ -1,0 +1,20 @@
+# Notice: You have to have an env_config.rb set up in your user directory:
+# The default location (right now, the only one that works!) is ~/.hackday/env_config.rb
+# Copy this file into the location above and fill in the blanks
+
+ACCESS_KEY_ID = 'YOURACCESSKEY'
+SECRET_ACCESS_KEY = 'YOURSECRETACCESSKEY'
+
+DYNECT_CUSTOMER = "YOURDYNECTCUSTOMER"
+DYNECT_USERNAME = "YOURDYNECTUSER"
+DYNECT_PASSWORD = "YOURDYNECTPASS"
+DYNECT_ZONE = "sample_zone.com"
+DYNECT_DOMAIN = "domain.com"
+
+AWS_USERNAME = "ubuntu" # If you're using a custom ami, update this
+AWS_PATH_TO_KEY = "/path/to/your/ssh/key.pem"
+
+@ami = 'ami-e2af508b' #This is the us-east official Ubuntu 11.04 32-bit instance storage AMI
+@region = 'us-east-1'
+@instance_size='m1.small'
+@key_name = "your-keypair-name"

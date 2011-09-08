@@ -1,0 +1,78 @@
+#!/bin/bash
+
+sudo echo "deb http://apt.opscode.com/ `lsb_release -cs`-0.10 main" | sudo tee /etc/apt/sources.list.d/opscode.list
+sudo mkdir -p /etc/apt/trusted.gpg.d
+gpg --keyserver keys.gnupg.net --recv-keys 83EF826A
+gpg --export packages@opscode.com | sudo tee /etc/apt/trusted.gpg.d/opscode-keyring.gpg > /dev/null
+sudo apt-get update
+sudo apt-get install opscode-keyring # permanent upgradeable keyring
+
+touch /tmp/step_1
+
+sudo apt-get -y upgrade
+
+touch /tmp/step_2
+
+sudo echo "chef chef/chef_server_url string http://chef.dtolabs.com" | sudo debconf-set-selections
+sudo echo "chef chef-solr/amqp_password string hackday" | sudo debconf-set-selections
+sudo echo "chef chef-server-webui/admin_password string hackday" | sudo debconf-set-selections
+sudo apt-get -y install chef chef-server
+
+touch /tmp/step_3
+
+# Make sure every service is started. Should be, but let's force it.
+#chefservices=( chef-expander chef-server chef-server-webui chef-solr )
+#for service in ${chefservices[@]}; do service $service start; done
+
+touch /tmp/step_4
+
+# Chef-client config, so this box conforms to base and logs into dns
+cat <<END > /etc/chef/client.rb
+log_level          :info
+log_location       STDOUT
+ssl_verify_mode    :verify_none
+chef_server_url    "http://localhost:4000"
+file_cache_path    "/var/cache/chef"
+file_backup_path   "/var/lib/chef/backup"
+pid_file           "/var/run/chef/client.pid"
+cache_options({ :path => "/var/cache/chef/checksums", :skip_expires => true})
+signing_ca_user "chef"
+Mixlib::Log::Formatter.show_time = true
+node_name "<%= hostname %>"
+END
+
+touch /tmp/step_5
+
+echo '<%= fqdn %>' > /etc/hostname
+hostname --file /etc/hostname
+
+touch /tmp/step_6
+
+sudo apt-get -y install git
+cd /home/ubuntu
+mkdir /home/ubuntu/.chef
+cp /etc/chef/validation.pem /etc/chef/webui.pem /home/ubuntu/.chef
+chown -R ubuntu /home/ubuntu/.chef
+chmod 666 /etc/chef/*.pem
+sudo -u ubuntu knife configure -i -y -r '/home/ubuntu/hackathon/chef-repo' --defaults
+chmod 600 /etc/chef/*.pem
+sudo -u ubuntu git clone git://github.com/dtolabs/hackathon.git
+sudo -u ubuntu knife cookbook upload -a
+sudo -u ubuntu knife data bag create users
+sudo -u ubuntu knife data bag from file users /home/ubuntu/hackathon/chef-repo/data_bags/users/hackday.json
+cp /etc/chef/validation.pem /home/ubuntu/.chef/
+chown ubuntu.ubuntu /home/ubuntu/.chef/validation.pem
+
+touch /tmp/step_7
+
+chef-client
+sudo -u ubuntu knife role from file /home/ubuntu/hackathon/chef-repo/roles/base.rb
+sudo -u ubuntu knife node run_list add <%= hostname %> "role[base]"
+chef-client
+
+touch /tmp/step_8
+
+cd hackathon/chef-repo
+
+
+
