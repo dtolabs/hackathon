@@ -8,6 +8,7 @@ directory "/var/lib/jenkins/tools/maven#{mavenVersion}" do
   group "nogroup"
   mode "0755"
   action :create
+  recursive true
 end
 
 directory "/var/lib/jenkins/tools/maven#{mavenVersion}/conf" do

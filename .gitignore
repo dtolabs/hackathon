@@ -1,0 +1,6 @@
+# Ignored Files #
+#################
+env_config.rb
+.chef
+*.pem
+knife.rb
