@@ -11,9 +11,14 @@ user "demo" do
   password "$1$w8x2QGiv$RLdrT87/8Z29QejUXUYOB0" #dukesbank
   comment "Demo user"
   uid 1001
-  gid "wheel"
+  gid "users"
   shell "/bin/bash"
   home "/home/demo"
+end
+
+group "wheel" do
+  git 51
+  members ['demo', 'ubuntu']
 end
 
 # Sudoers, so demo user can run root commands:
