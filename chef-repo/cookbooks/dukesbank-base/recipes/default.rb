@@ -17,7 +17,7 @@ user "demo" do
 end
 
 group "wheel" do
-  git 51
+  gid 51
   members ['demo', 'ubuntu']
 end
 
@@ -27,4 +27,13 @@ template "/etc/sudoers" do
   owner "root"
   group "root"
   mode 0440
+end
+
+if platform?("debian", "ubuntu")
+  template "/etc/ssh/sshd_config" do
+    source "sshd_config.erb"
+    owner "root"
+    group "root"
+    mode 0644
+  end
 end
