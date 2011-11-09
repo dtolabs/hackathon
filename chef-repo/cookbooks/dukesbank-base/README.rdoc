@@ -1,0 +1,14 @@
+= DESCRIPTION:
+
+This cookbook sets up the basics for all dukesbank examples, in particular the dukesbank user and necessary prerequisites. (Java, in particular)
+
+= REQUIREMENTS:
+
+We need the java cookbook
+
+= ATTRIBUTES:
+
+None neeced to customize, this is an opinionated example recipe!
+
+= USAGE:
+
