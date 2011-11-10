@@ -14,7 +14,10 @@ user "demo" do
   gid "admin"
   shell "/bin/bash"
   home "/home/demo"
+  supports :manage_home => true
 end
+
+
 
 if platform?("debian", "ubuntu")
   service "ssh" do
