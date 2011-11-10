@@ -26,16 +26,17 @@ end
 
 directory "#{node[:rundeck][:dir]}" do
   owner "rundeck"
-  group "sysadmin"
+  group "admin"
   mode "0755"
   action :create
 end
 
-remote_file "#{node[:rundeck][:dir]}/rundeck-launcher-1.3.0.jar" do
-  source "http://build.rundeck.org/job/rundeck-development/lastSuccessfulBuild/artifact/rundeckapp/target/rundeck-launcher-1.3.0.jar"
+remote_file "#{node[:rundeck][:dir]}/rundeck-launcher-1.4.0.jar" do
+  source "http://build.rundeck.org/job/release-1.4/lastSuccessfulBuild/artifact/rundeckapp/target/rundeck-launcher-1.4.0.jar"
   owner "rundeck"
-  group "sysadmin"
+  group "admin"
   mode "0644"
+  checksum "102d73de6ca08a2cd3c71642736ba493df9d050a3ef7d24ef0038783afd58f22"
 end
 
 template "/etc/security/limits.conf" do
@@ -51,9 +52,9 @@ end
 
 execute "install" do
   user "rundeck"
-  group "sysadmin"
+  group "admin"
   cwd "#{node[:rundeck][:dir]}"
-  command "java -jar #{node[:rundeck][:dir]}/rundeck-launcher-1.3.0.jar -d --installonly -b #{node[:rundeck][:dir]}"
+  command "java -jar #{node[:rundeck][:dir]}/rundeck-launcher-1.4.0.jar -d --installonly -b #{node[:rundeck][:dir]}"
   #creates "#{node[:rundeck][:dir]}/server"
   #creates "#{node[:rundeck][:dir]}/tools"
   ##creates "#{node[:rundeck][:dir]}/libext"
@@ -62,7 +63,7 @@ end
 
 execute "configure" do
   user "rundeck"
-  group "sysadmin"
+  group "admin"
   cwd "#{node[:rundeck][:dir]}"
   environment ({ 
     "RDECK_BASE" => node[:rundeck][:dir], 

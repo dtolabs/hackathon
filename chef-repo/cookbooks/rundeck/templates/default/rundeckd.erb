@@ -19,7 +19,7 @@ RDECK_PORT=<%= node[:rundeck][:port] %>
 # Get the Launcher Jar path
 [ -z "$RDECK_LAUNCHER" ] && {
     # Defaults to location of first startup
-    RDECK_LAUNCHER='<%=node[:rundeck][:dir]%>/rundeck-launcher-1.3.0.jar'; #set by install
+    RDECK_LAUNCHER='<%=node[:rundeck][:dir]%>/rundeck-launcher-1.4.0.jar'; #set by install
 }
 [ -r "$RDECK_LAUNCHER" ] || {
     echo "RDECK_LAUNCHER not found: $RDECK_LAUNCHER" 

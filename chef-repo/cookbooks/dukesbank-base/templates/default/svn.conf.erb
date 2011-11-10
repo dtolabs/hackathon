@@ -1,0 +1,15 @@
+<Location /repos>
+   DAV svn
+   SVNParentPath /var/www/svn
+
+   # Limit write permission to list of valid users.
+   <LimitExcept GET PROPFIND OPTIONS REPORT>
+      # Require SSL connection for password protection.
+      # SSLRequireSSL
+
+      AuthType Basic
+      AuthName "Authorization Realm"
+      AuthUserFile /etc/svn-auth-file
+      Require valid-user
+   </LimitExcept>
+</Location>

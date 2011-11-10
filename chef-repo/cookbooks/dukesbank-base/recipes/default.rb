@@ -11,29 +11,28 @@ user "demo" do
   password "$1$w8x2QGiv$RLdrT87/8Z29QejUXUYOB0" #dukesbank
   comment "Demo user"
   uid 1001
-  gid "users"
+  gid "admin"
   shell "/bin/bash"
   home "/home/demo"
 end
 
-group "wheel" do
-  gid 51
-  members ['demo', 'ubuntu']
-end
-
-# Sudoers, so demo user can run root commands:
-template "/etc/sudoers" do
-  source "sudoers.erb"
-  owner "root"
-  group "root"
-  mode 0440
-end
-
 if platform?("debian", "ubuntu")
+  service "ssh" do
+   supports :restart => true, :status => true, :reload => true
+   action :nothing
+  end
+
   template "/etc/ssh/sshd_config" do
     source "sshd_config.erb"
     owner "root"
     group "root"
     mode 0644
+    notifies :restart, "service[ssh]" 
   end
 end
+
+%w[ unzip subversion ].each do |pkg|
+  package pkg
+end
+
+include_recipe "java"
