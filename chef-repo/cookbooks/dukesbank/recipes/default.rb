@@ -17,7 +17,11 @@ user "demo" do
   supports :manage_home => true
 end
 
-
+directory "/home/demo/.ssh" do
+  user "demo"
+  group "admin"
+  mode 0700
+end
 
 if platform?("debian", "ubuntu")
   service "ssh" do
