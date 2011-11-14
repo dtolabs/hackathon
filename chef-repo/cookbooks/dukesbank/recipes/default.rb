@@ -18,7 +18,7 @@ user "demo" do
 end
 
 directory "/home/demo/.ssh" do
-  user "demo"
+  owner "demo"
   group "admin"
   mode 0700
 end
